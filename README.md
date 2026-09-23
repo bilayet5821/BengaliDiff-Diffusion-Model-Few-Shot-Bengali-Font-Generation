@@ -4,12 +4,11 @@
 
 ### Diffusion Model for Few-Shot Bengali Font Generation
 
-**A diffusion-based generative framework for synthesizing Bengali glyphs  
-from limited style references while preserving character structure and font identity.**
+**A diffusion-based generative framework for Bengali glyph synthesis from limited style references**
 
 <br>
 
-[![Paper](https://img.shields.io/badge/📄_Paper-Springer-1f6feb?style=for-the-badge)](https://link.springer.com/chapter/10.1007/978-3-032-09371-4_7)
+[![Paper](https://img.shields.io/badge/Paper-Springer-blue?style=for-the-badge)](https://link.springer.com/chapter/10.1007/978-3-032-09371-4_7)
 [![DOI](https://img.shields.io/badge/DOI-10.1007%2F978--3--032--09371--4__7-green?style=for-the-badge)](https://doi.org/10.1007/978-3-032-09371-4_7)
 ![Python](https://img.shields.io/badge/Python-3.9-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-1.13.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
@@ -18,7 +17,7 @@ from limited style references while preserving character structure and font iden
 
 **Md Bilayet Hossain · Honghui Yuan · Shabnur Anonna Akhy · Keiji Yanai**
 
-📚 **ICDAR 2025 Workshops · Springer LNCS**
+**ICDAR 2025 Workshops · Springer LNCS**
 
 </div>
 
@@ -26,11 +25,20 @@ from limited style references while preserving character structure and font iden
 
 ## 🔍 Overview
 
-**BengaliDiff** is a research framework for **few-shot Bengali font generation** using diffusion models.
+**BengaliDiff** is a diffusion-based research framework for **few-shot Bengali font generation**.
 
-Generating Bengali fonts is challenging because Bengali contains complex glyph structures, modifiers, compound characters, and substantial stylistic variation. BengaliDiff investigates how a generative model can learn a target font style from only a limited number of reference glyphs and transfer that style to other Bengali characters.
+Bengali script presents unique challenges for generative font modeling due to its complex glyph structures, modifiers, compound characters, and substantial stylistic variations.
 
-The framework combines **content representation**, **style representation**, **attention-based feature integration**, and **diffusion-based generation** to synthesize Bengali glyphs while preserving both character identity and visual style.
+BengaliDiff investigates how a generative model can learn a target font style from a limited number of reference glyphs and transfer that visual style to other Bengali characters while preserving their structural identity.
+
+The framework combines:
+
+- **Content representation learning**
+- **Style representation learning**
+- **Attention-based content-style integration**
+- **Diffusion-based image generation**
+- **Adversarial supervision**
+- **Efficient diffusion sampling**
 
 > 📌 This repository contains the research implementation associated with our published BengaliDiff work.
 
@@ -38,21 +46,21 @@ The framework combines **content representation**, **style representation**, **a
 
 ## ✨ Research Highlights
 
-- 🅱️ **Bengali-specific font generation**
-- 🎨 **Few-shot style transfer**
-- 🌫️ **Diffusion-based glyph synthesis**
-- 🧠 **Content & style representation learning**
-- 🔗 **Attention-based feature integration**
-- ⚔️ **Adversarial supervision components**
-- ⚡ **DPM-Solver++ accelerated sampling**
-- 🔬 **SFUC & UFUC experimental evaluation**
+- 🅱️ Bengali-specific font generation
+- 🎨 Few-shot font style transfer
+- 🌫️ Diffusion-based glyph synthesis
+- 🧠 Content and style representation learning
+- 🔗 Attention-based feature integration
+- ⚔️ Adversarial supervision components
+- ⚡ DPM-Solver++ accelerated sampling
+- 🔬 SFUC and UFUC experimental evaluation
 
 ---
 
-## 🏗️ BengaliDiff Architecture
+## 🏗️ Architecture
 
 <p align="center">
-  <img src="figures/bengalidiff_architecture.png" width="900">
+  <img src="figures/bengalidiff_architecture.png" width="900" alt="BengaliDiff Architecture">
 </p>
 
 <p align="center">
@@ -61,113 +69,191 @@ The framework combines **content representation**, **style representation**, **a
 
 The generation pipeline can be summarized as:
 
-text
-          Content Glyph
-               │
-               ▼
-        Content Encoder
-               │
-               │
-               ├───────────────┐
-               │               │
-               │        Reference Glyph
-               │               │
-               │               ▼
-               │         Style Encoder
-               │               │
-               └───────┬───────┘
-                       ▼
-             Content–Style Fusion
-                       │
-                       ▼
-                Diffusion U-Net
-                       │
-                       ▼
-               Reverse Denoising
-                       │
-                       ▼
-                 DPM-Solver++
-                       │
-                       ▼
-             Generated Bengali Glyph
-🖼️ Qualitative Results
-<p align="center"> <img src="figures/bengalidiff_qualitative_results.png" width="900"> </p> <p align="center"> <i>Examples of Bengali glyph generation under the experimental settings used in BengaliDiff.</i> </p>
-🧪 Ablation Study
-<p align="center"> <img src="figures/bengalidiff_ablation.png" width="900"> </p>
+```text
+Content Glyph ──────► Content Encoder ─────┐
+                                          │
+                                          ▼
+                                 Content-Style Fusion
+                                          │
+                                          ▼
+Reference Glyph ─────► Style Encoder ─────┘
+                                          │
+                                          ▼
+                                   Diffusion U-Net
+                                          │
+                                          ▼
+                                  Reverse Denoising
+                                          │
+                                          ▼
+                                    DPM-Solver++
+                                          │
+                                          ▼
+                              Generated Bengali Glyph
+```
 
-The ablation experiments examine the contribution of the proposed components to style preservation and Bengali glyph generation quality.
+---
 
-For complete quantitative analysis, experimental settings, and comparisons, please refer to the published paper.
+## 🖼️ Qualitative Results
 
-📄 Publication
+<p align="center">
+  <img src="figures/bengalidiff_qualitative_results.png" width="900" alt="BengaliDiff Qualitative Results">
+</p>
 
-BengaliDiff: Diffusion Model for Few-Shot Bengali Font Generation
+<p align="center">
+  <i>Qualitative examples of Bengali glyph generation using BengaliDiff.</i>
+</p>
+
+The qualitative results demonstrate the ability of BengaliDiff to transfer visual font characteristics from reference glyphs while preserving Bengali character structures.
+
+For detailed quantitative comparisons and experimental analysis, please refer to the published paper.
+
+---
+
+## 🧪 Ablation Study
+
+<p align="center">
+  <img src="figures/bengalidiff_ablation.png" width="900" alt="BengaliDiff Ablation Study">
+</p>
+
+<p align="center">
+  <i>Ablation analysis of the BengaliDiff framework.</i>
+</p>
+
+The ablation experiments investigate the contribution of different model components to style preservation and Bengali glyph generation quality.
+
+---
+
+## 📄 Publication
+
+### BengaliDiff: Diffusion Model for Few-Shot Bengali Font Generation
+
+**Authors:**  
 Md Bilayet Hossain, Honghui Yuan, Shabnur Anonna Akhy, Keiji Yanai
-Document Analysis and Recognition – ICDAR 2025 Workshops
-Lecture Notes in Computer Science, Vol. 16226, pp. 101–115
+
+**Published in:**  
+*Document Analysis and Recognition – ICDAR 2025 Workshops*
+
+**Lecture Notes in Computer Science (LNCS), Vol. 16226, pp. 101–115**  
 Springer, Cham.
 
-📖 Paper:
+📖 **Paper:**  
 https://link.springer.com/chapter/10.1007/978-3-032-09371-4_7
 
-🔗 DOI:
+🔗 **DOI:**  
 https://doi.org/10.1007/978-3-032-09371-4_7
 
-📂 Repository Structure
+---
+
+## 📂 Repository Structure
+
+```text
 BengaliDiff/
 │
-├── configs/                 # Training configuration
-├── dataset/                 # Dataset loader and batching
-├── data_examples/           # Minimal reproducibility examples
-├── figures/                 # Architecture and research results
-├── scripts/                 # Training and sampling scripts
+├── configs/
+│   └── fontdiffuser.py
+│
+├── dataset/
+│   ├── collate_fn.py
+│   └── font_dataset.py
+│
+├── data_examples/
+│   ├── sampling/
+│   │   ├── source_images/
+│   │   └── reference_images/
+│   │
+│   └── train/
+│       ├── ContentImage/
+│       └── TargetImage/
+│
+├── figures/
+│   ├── bengalidiff_architecture.png
+│   ├── bengalidiff_qualitative_results.png
+│   └── bengalidiff_ablation.png
+│
+├── scripts/
+│   ├── sample_content_character.sh
+│   ├── sample_content_image.sh
+│   ├── train_phase_1.sh
+│   └── train_phase_2.sh
 │
 ├── src/
-│   ├── dpm_solver/          # DPM-Solver implementation
-│   ├── modules/             # Model components
+│   ├── dpm_solver/
+│   ├── modules/
 │   ├── build.py
 │   ├── criterion.py
 │   ├── discriminator.py
 │   └── model.py
 │
-├── char_map.json            # Bengali character mapping
-├── train.py                 # Main training pipeline
-├── train_disc.py            # Discriminator training
-├── sample.py                # Glyph generation / inference
-├── evaluation.py            # Evaluation utilities
-├── gradio_app.py            # Interactive demo interface
+├── char_map.json
+├── evaluation.py
+├── gradio_app.py
 ├── requirements.txt
-└── README.md
-⚙️ Installation
-1. Clone
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-cd YOUR_REPOSITORY
-2. Create Environment
+├── sample.py
+├── train.py
+├── train_disc.py
+└── utils.py
+```
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/bilayet5821/BengaliDiff-Diffusion-Model-Few-Shot-Bengali-Font-Generation.git
+```
+
+```bash
+cd BengaliDiff-Diffusion-Model-Few-Shot-Bengali-Font-Generation
+```
+
+### 2. Create the Environment
+
+```bash
 conda create -n bengalidiff python=3.9 -y
 conda activate bengalidiff
-3. Install PyTorch
-pip install torch==1.13.1+cu117 \
-torchvision==0.14.1+cu117 \
-torchaudio==0.13.1 \
---extra-index-url https://download.pytorch.org/whl/cu117
-4. Install Dependencies
+```
+
+### 3. Install PyTorch
+
+```bash
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
+```
+
+### 4. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-5. Configure Accelerate
+```
+
+### 5. Configure Accelerate
+
+```bash
 accelerate config
-📊 Dataset Preparation
+```
 
-The complete research dataset is not distributed with this repository.
+---
 
-Prepare Bengali glyphs using the following structure:
+## 📊 Dataset Preparation
 
+The complete BengaliDiff research dataset is **not distributed with this repository**.
+
+Researchers can prepare Bengali font data according to the structure expected by the dataset loader.
+
+```text
 DATA_ROOT/
+│
 └── train/
+    │
     ├── ContentImage/
     │   ├── char01.jpg
     │   ├── char02.jpg
+    │   ├── char03.jpg
     │   └── ...
     │
     └── TargetImage/
+        │
         ├── FontStyle01/
         │   ├── FontStyle01+char01.jpg
         │   ├── FontStyle01+char02.jpg
@@ -177,112 +263,213 @@ DATA_ROOT/
             ├── FontStyle02+char01.jpg
             ├── FontStyle02+char02.jpg
             └── ...
-Naming Convention
+```
+
+### Naming Convention
+
+Target glyph images follow:
+
+```text
 <style>+<content>.jpg
+```
 
 Example:
 
-TargetImage/
-└── AdorshoLipi/
-    ├── AdorshoLipi+char01.jpg
-    ├── AdorshoLipi+char02.jpg
-    └── AdorshoLipi+char03.jpg
+```text
+AdorshoLipi+char01.jpg
+```
 
-The corresponding content glyphs must exist inside ContentImage/.
+with the corresponding content glyph:
 
-🚀 Training
-Phase 1
+```text
+ContentImage/char01.jpg
+```
+
+---
+
+## 🚀 Training
+
+### Phase 1 — Main Diffusion Training
+
+Run:
+
+```bash
 bash scripts/train_phase_1.sh
+```
 
-Phase 1 trains the primary diffusion-based font generation framework.
+The primary training configuration is defined in:
 
-Phase 2
+```text
+configs/fontdiffuser.py
+```
+
+Important parameters include:
+
+```text
+--data_root
+--output_dir
+--resolution
+--train_batch_size
+--max_train_steps
+--learning_rate
+--ckpt_interval
+--drop_prob
+```
+
+---
+
+### Phase 2 — Style-Contrastive Training
+
+After obtaining the Phase 1 checkpoint:
+
+```bash
 bash scripts/train_phase_2.sh
+```
 
-Phase 2 uses the trained Phase-1 checkpoint and additional style-contrastive supervision.
+Relevant configuration options include:
 
-Adversarial Components
+```text
+--phase_2
+--phase_1_ckpt_dir
+--scr_ckpt_path
+--sc_coefficient
+--num_neg
+```
 
-BengaliDiff also includes discriminator-related components:
+---
 
+## ⚔️ Adversarial Training
+
+BengaliDiff also includes discriminator-related components used during model development:
+
+```text
 train_disc.py
 src/discriminator.py
 src/modules/discriminator.py
+```
 
-These files contain the adversarial-supervision components used during BengaliDiff development.
+These components support the adversarial supervision experiments associated with BengaliDiff.
 
-🎨 Generate Bengali Glyphs
+---
 
-A trained checkpoint is required for inference.
+## 🎨 Inference
 
-Typical checkpoint structure:
+A trained checkpoint is required for generation.
 
+Example checkpoint structure:
+
+```text
 ckpt/
 ├── unet.pth
 ├── content_encoder.pth
 └── style_encoder.pth
+```
 
-Run:
+Run image-based sampling using:
 
+```bash
 bash scripts/sample_content_image.sh
+```
 
-or use:
+You can also inspect all available sampling arguments using:
 
+```bash
 python sample.py --help
+```
 
-⚠️ Pretrained BengaliDiff weights are not included in this repository.
+Example images can be placed under:
 
-📏 Evaluation
+```text
+data_examples/
+└── sampling/
+    ├── source_images/
+    │   └── source_01.jpg
+    │
+    └── reference_images/
+        └── reference_01.jpg
+```
 
-Evaluation utilities are provided in:
+> ⚠️ Pretrained BengaliDiff weights are not included in this repository.
 
+---
+
+## 📏 Evaluation
+
+Evaluation utilities are available in:
+
+```text
 evaluation.py
+```
 
-The research evaluates Bengali font generation under different generalization settings, including:
+BengaliDiff investigates font-generation performance under different generalization scenarios.
 
-Protocol	Description
-SFUC	Seen Font, Unseen Character
-UFUC	Unseen Font, Unseen Character
+| Protocol | Meaning |
+|:---:|---|
+| **SFUC** | Seen Font, Unseen Character |
+| **UFUC** | Unseen Font, Unseen Character |
 
-For the exact experimental protocol, quantitative results, and comparison with existing methods, please refer to the published paper.
+For the exact dataset splits, quantitative results, evaluation metrics, and comparisons with existing methods, please refer to the published paper.
 
-🔬 Reproducing the Research
+---
 
-For reproduction:
+## 🔬 Reproducing BengaliDiff
 
-Prepare Bengali glyphs following the documented dataset structure.
-Install the pinned research environment.
-Configure the dataset/output paths.
-Train the Phase-1 model.
-Run the subsequent training stage required by the experiment.
-Generate Bengali glyphs using the sampling pipeline.
-Evaluate generated outputs.
-Compare against the experimental protocol reported in the paper.
+To reproduce the research workflow:
 
-Large checkpoints, complete datasets, OCR weights, logs, and experiment dumps are intentionally excluded from the public repository.
+1. Prepare Bengali glyph images using the required directory structure.
+2. Install the research environment and dependencies.
+3. Configure the dataset and output paths.
+4. Train the Phase 1 diffusion model.
+5. Run the subsequent training stage required by the experiment.
+6. Generate Bengali glyphs using the sampling pipeline.
+7. Evaluate the generated glyphs.
+8. Compare the results following the experimental protocol described in the paper.
 
-⚠️ Limitations
+Large datasets, checkpoints, experiment outputs, OCR weights, and training logs are intentionally excluded from this public repository.
 
-BengaliDiff is a research implementation, not a production font-design system. Generation quality depends on the diversity and quality of training fonts, and reproducing the exact published experiments requires following the experimental configuration described in the paper.
+---
 
-🙏 Acknowledgements
+## ⚠️ Limitations
 
-BengaliDiff builds upon the excellent work:
+BengaliDiff is a **research implementation** rather than a production font-design system.
 
-FontDiffuser: One-Shot Font Generation via Denoising Diffusion with Multi-Scale Content Aggregation and Style Contrastive Learning
-Zhenhua Yang, Dezhi Peng, Yuxin Kong, Yuyi Zhang, Cong Yao, Lianwen Jin
-AAAI 2024
+Generation quality depends on:
 
-🔗 https://github.com/yeungchenwa/FontDiffuser
+- training font diversity,
+- quality of reference glyphs,
+- complexity of Bengali characters,
+- training configuration, and
+- available computational resources.
+
+Reproducing the exact published results requires following the experimental configuration described in the paper.
+
+---
+
+## 🙏 Acknowledgements
+
+BengaliDiff builds upon the open-source **FontDiffuser** research implementation:
+
+> **FontDiffuser: One-Shot Font Generation via Denoising Diffusion with Multi-Scale Content Aggregation and Style Contrastive Learning**
+
+Zhenhua Yang, Dezhi Peng, Yuxin Kong, Yuyi Zhang, Cong Yao, and Lianwen Jin.
+
+**AAAI 2024**
+
+Repository:
+
+https://github.com/yeungchenwa/FontDiffuser
 
 We gratefully acknowledge the FontDiffuser authors for making their research implementation publicly available.
 
-BengaliDiff adapts and extends this foundation for few-shot Bengali font generation.
+BengaliDiff adapts and extends this foundation for **few-shot Bengali font generation**.
 
-📝 Citation
+---
 
-If BengaliDiff is useful in your research, please cite:
+## 📝 Citation
 
+If you use BengaliDiff in your research, please cite:
+
+```bibtex
 @inproceedings{hossain2026bengalidiff,
   title     = {BengaliDiff: Diffusion Model for Few-Shot Bengali Font Generation},
   author    = {Hossain, Md Bilayet and Yuan, Honghui and
@@ -295,25 +482,36 @@ If BengaliDiff is useful in your research, please cite:
   publisher = {Springer},
   doi       = {10.1007/978-3-032-09371-4_7}
 }
-⚖️ Usage Notice
+```
 
-This repository contains code adapted from the FontDiffuser research implementation.
+---
 
-The upstream FontDiffuser repository provides its code for non-commercial research purposes. Users of this repository should therefore review and comply with the applicable upstream terms and notices.
+## ⚖️ Usage Notice
 
-This repository should not be interpreted as an independently MIT-licensed reimplementation of all included source code.
+This repository contains code adapted from the **FontDiffuser** research implementation.
+
+Users should review and comply with the applicable terms and notices of the original FontDiffuser repository.
+
+Please cite **BengaliDiff** and the underlying **FontDiffuser** work when appropriate.
+
+---
 
 <div align="center">
-⭐ BengaliDiff
 
-Advancing Generative AI for Bengali Script
+## ⭐ BengaliDiff
 
-📄 Read the Paper
-  •  
-🔗 DOI
+### Advancing Generative AI for Bengali Script
+
+[**📄 Read the Paper**](https://link.springer.com/chapter/10.1007/978-3-032-09371-4_7)
+&nbsp;&nbsp; • &nbsp;&nbsp;
+[**🔗 DOI**](https://doi.org/10.1007/978-3-032-09371-4_7)
 
 <br>
 
-Computer Vision · Generative AI · Diffusion Models · Bengali Font Generation
+**Computer Vision • Generative AI • Diffusion Models • Bengali Font Generation**
 
-</div> 
+<br>
+
+If you find this repository useful for your research, consider giving it a ⭐.
+
+</div>

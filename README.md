@@ -61,7 +61,7 @@ The framework combines **content representation**, **style representation**, **a
 
 The generation pipeline can be summarized as:
 
-```text
+text
           Content Glyph
                │
                ▼
@@ -316,4 +316,4 @@ Advancing Generative AI for Bengali Script
 
 Computer Vision · Generative AI · Diffusion Models · Bengali Font Generation
 
-</div> ```
+</div> 

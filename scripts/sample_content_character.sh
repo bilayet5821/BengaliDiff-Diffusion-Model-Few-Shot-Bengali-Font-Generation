@@ -1,0 +1,13 @@
+python sample.py \
+    --ckpt_dir="outputs/FontDiffuser/global_step_40000" \
+    --style_image_path="data_examples/sampling/char_1_অ.jpg" \
+    --save_image \
+    --character_input \
+    --content_character="ই" \
+    --save_image_dir="outputs/" \
+    --device="cuda:0" \
+    --algorithm_type="dpmsolver++" \
+    --guidance_type="classifier-free" \
+    --guidance_scale=7.5 \
+    --num_inference_steps=20 \
+    --method="multistep"

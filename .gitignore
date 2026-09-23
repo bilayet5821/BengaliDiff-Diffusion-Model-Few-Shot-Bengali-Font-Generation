@@ -1,0 +1,95 @@
+# ==========================================
+# BengaliDiff - Git Ignore
+# ==========================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+
+# Virtual environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# IDE / OS
+.vscode/
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Training Outputs & Checkpoints
+# ==========================================
+
+phase_1_ckpt/
+ckpt/
+checkpoints/
+global_step_*/
+
+outputs/
+output/
+runs/
+runs_old/
+run_sh/
+
+logs/
+lightning_logs/
+wandb/
+
+*.pth
+*.pt
+*.ckpt
+events.out.tfevents.*
+
+# ==========================================
+# Private / Large Data
+# ==========================================
+
+data/
+datasets/
+proc_data/
+serialization_dir/
+
+# Auxiliary models
+ocr_model/
+
+# Font files / private font collections
+ttf/
+
+# ==========================================
+# Experiment / Cache Files
+# ==========================================
+
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+*.tmp
+*.log
+*.lock
+
+# ==========================================
+# Python Packaging
+# ==========================================
+
+build/
+dist/
+*.egg-info/
+.eggs/
+wheels/
+
+# ==========================================
+# Miscellaneous
+# ==========================================
+
+*.mp4
+*.*~
+.*.swp

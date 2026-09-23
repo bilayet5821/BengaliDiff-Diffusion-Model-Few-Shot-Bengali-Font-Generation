@@ -1,0 +1,12 @@
+python sample.py \
+    --ckpt_dir="outputs_phase_2/FontDiffuser/global_step_30000" \
+    --content_image_path="data_examples/sampling/source images/NotoSerifBengali+char104.jpg" \
+    --style_image_path="data_examples/sampling/reference images/Mohua_07-09-05+char69.jpg" \
+    --save_image \
+    --save_image_dir="outputs/" \
+    --device="cuda:0" \
+    --algorithm_type="dpmsolver++" \
+    --guidance_type="classifier-free" \
+    --guidance_scale=7.5 \
+    --num_inference_steps=20 \
+    --method="multistep"
